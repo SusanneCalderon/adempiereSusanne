@@ -74,6 +74,7 @@ public class Doc_ProjectIssue extends Doc
 		//	Pseudo Line
 		m_line = new DocLine (m_issue, this); 
 		m_line.setQty (m_issue.getMovementQty(), true);    //  sets Trx and Storage Qty
+		m_line.setReversalLine_ID(m_issue.getReversalLine_ID());	
 		
 		//	Pseudo Line Check
 		if (m_line.getM_Product_ID() == 0)
@@ -119,6 +120,7 @@ public class Doc_ProjectIssue extends Doc
 	public ArrayList<Fact> createFacts (MAcctSchema as)
 	{
 		//  create Fact Header
+		ArrayList<Fact> facts = new ArrayList<Fact>();
 		Fact fact = new Fact(this, as, Fact.POST_Actual);
 		setC_Currency_ID (as.getC_Currency_ID());
 
@@ -127,8 +129,8 @@ public class Doc_ProjectIssue extends Doc
 		MProduct product = MProduct.get(getCtx(), m_issue.getM_Product_ID());
 			
 		//  Line pointers
-		FactLine dr = null;
-		FactLine cr = null;
+		FactLine debitLine = null;
+		FactLine creditLine = null;
 
 		//  Issue Cost
 		BigDecimal costs = null;
@@ -160,21 +162,20 @@ public class Doc_ProjectIssue extends Doc
 		int acctType = ACCTTYPE_ProjectWIP;
 		if (MProject.PROJECTCATEGORY_AssetProject.equals(ProjectCategory))
 			acctType = ACCTTYPE_ProjectAsset;
-		dr = fact.createLine(m_line,
-			getAccount(acctType, as), as.getC_Currency_ID(), costs, null);
-		dr.setQty(m_line.getQty().negate());
+		debitLine = fact.createLine(m_line,
+			getAccount(acctType, as), as.getC_Currency_ID(), total, null);
+		debitLine.setQty(m_line.getQty().negate());
 		
 		//  Inventory               CR
 		acctType = ProductCost.ACCTTYPE_P_Asset;
 		if (product.isService())
 			acctType = ProductCost.ACCTTYPE_P_Expense;
-		cr = fact.createLine(m_line,
+		creditLine = fact.createLine(m_line,
 			m_line.getAccount(acctType,as),
-			as.getC_Currency_ID(), null, costs);
-		cr.setM_Locator_ID(m_line.getM_Locator_ID());
-		cr.setLocationFromLocator(m_line.getM_Locator_ID(), true);	// from Loc
+			as.getC_Currency_ID(), null, total);
+		creditLine.setM_Locator_ID(m_line.getM_Locator_ID());
+		creditLine.setLocationFromLocator(m_line.getM_Locator_ID(), true);	// from Loc
 		//
-		ArrayList<Fact> facts = new ArrayList<Fact>();
 		facts.add(fact);
 		return facts;
 	}   //  createFact

@@ -242,7 +242,9 @@ public class ProjectIssue extends ProjectIssueAbstract
 			projectIssue.setMovementDate(getMovementDate());
 		if (getDescription() != null && getDescription().length() > 0)
 			projectIssue.setDescription(getDescription());
-		projectIssue.process();
+		projectIssue.setC_DocType_ID(getDocTypeId());
+		projectIssue.saveEx();
+		//projectIssue.process();
 
 		//	Create Project Line
 		MProjectLine projectLine = new MProjectLine(project);

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2017 ADempiere Foundation, All Rights Reserved.         *
  * This program is free software, you can redistribute it and/or modify it    *
  * under the terms version 2 of the GNU General Public License as published   *
- * or (at your option) any later version.										*
+ * or (at your option) any later version.                                     *
  * by the Free Software Foundation. This program is distributed in the hope   *
  * that it will be useful, but WITHOUT ANY WARRANTY, without even the implied *
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.           *
@@ -12,19 +12,19 @@
  * with this program, if not, write to the Free Software Foundation, Inc.,    *
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
  * For the text or an alternative of this public license, you may reach us    *
- * or via info@adempiere.net or http://www.adempiere.net/license.html         *
+ * or via info@adempiere.net                                                  *
+ * or https://github.com/adempiere/adempiere/blob/develop/license.html        *
  *****************************************************************************/
 
 package org.compiere.project.process;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
 import org.compiere.process.SvrProcess;
 
 /** Generated Process for (Issue to Project)
  *  @author ADempiere (generated) 
- *  @version Release 3.9.0
+ *  @version Release 3.9.4
  */
 public abstract class ProjectIssueAbstract extends SvrProcess {
 	/** Process Value 	*/
@@ -53,6 +53,8 @@ public abstract class ProjectIssueAbstract extends SvrProcess {
 	public static final String MOVEMENTDATE = "MovementDate";
 	/**	Parameter Name for Description	*/
 	public static final String DESCRIPTION = "Description";
+	/**	Parameter Name for Document Type	*/
+	public static final String C_DOCTYPE_ID = "C_DocType_ID";
 	/**	Parameter Value for Project	*/
 	private int projectId;
 	/**	Parameter Value for Shipment/Receipt	*/
@@ -73,6 +75,8 @@ public abstract class ProjectIssueAbstract extends SvrProcess {
 	private Timestamp movementDate;
 	/**	Parameter Value for Description	*/
 	private String description;
+	/**	Parameter Value for Document Type	*/
+	private int docTypeId;
 
 	@Override
 	protected void prepare() {
@@ -86,6 +90,7 @@ public abstract class ProjectIssueAbstract extends SvrProcess {
 		movementQty = getParameterAsBigDecimal(MOVEMENTQTY);
 		movementDate = getParameterAsTimestamp(MOVEMENTDATE);
 		description = getParameterAsString(DESCRIPTION);
+		docTypeId = getParameterAsInt(C_DOCTYPE_ID);
 	}
 
 	/**	 Getter Parameter Value for Project	*/
@@ -160,9 +165,6 @@ public abstract class ProjectIssueAbstract extends SvrProcess {
 
 	/**	 Getter Parameter Value for Movement Quantity	*/
 	protected BigDecimal getMovementQty() {
-		if (movementQty == null)
-			movementQty = BigDecimal.ZERO;
-
 		return movementQty;
 	}
 
@@ -189,6 +191,16 @@ public abstract class ProjectIssueAbstract extends SvrProcess {
 	/**	 Setter Parameter Value for Description	*/
 	protected void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**	 Getter Parameter Value for Document Type	*/
+	protected int getDocTypeId() {
+		return docTypeId;
+	}
+
+	/**	 Setter Parameter Value for Document Type	*/
+	protected void setDocTypeId(int docTypeId) {
+		this.docTypeId = docTypeId;
 	}
 
 	/**	 Getter Parameter Value for Process ID	*/

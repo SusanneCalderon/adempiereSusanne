@@ -51,6 +51,7 @@ import org.compiere.model.MMovement;
 import org.compiere.model.MPayment;
 import org.compiere.model.MProduction;
 import org.compiere.model.MProductionBatch;
+import org.compiere.model.MProjectIssue;
 import org.compiere.model.MRequisition;
 import org.compiere.model.MRole;
 import org.compiere.model.MTable;
@@ -1075,6 +1076,20 @@ public class DocumentEngine implements DocAction
 		 *  Shipment
 		 */
 		else if (tableId == MInOut.Table_ID)
+		{
+			//	Complete                    ..  CO
+			if (docStatus.equals(STATUS_Completed))
+			{
+				options[index++] = ACTION_Void;
+				options[index++] = ACTION_Reverse_Correct;
+				options[index++] = ACTION_Reverse_Accrual;
+			}
+		}
+		/********************
+		 * 
+		 * *  ProjectIssue
+		 */
+		else if (tableId == MProjectIssue.Table_ID)
 		{
 			//	Complete                    ..  CO
 			if (docStatus.equals(STATUS_Completed))
