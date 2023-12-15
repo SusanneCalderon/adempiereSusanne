@@ -711,6 +711,14 @@
 			<zipfileset src="lib/vavr-1.0.0-alpha-4.jar">
 				<patternset refid="manifest.exclude" />
 			</zipfileset>
+			<!-- Json Jackson			-->
+			<zipfileset src="lib/jackson-core-asl-1.9.13.jar">
+				<patternset refid="manifest.exclude" />
+			</zipfileset>
+			<!-- Json Jackson			-->
+			<zipfileset src="lib/jackson-mapper-asl-1.9.13.jar">
+				<patternset refid="manifest.exclude" />
+			</zipfileset>
 			<manifest>
 				<attribute name="Specification-Title" value="Adempiere Client Tools" />
 				<attribute name="Specification-Version" value="${env.ADEMPIERE_VERSION}" />
