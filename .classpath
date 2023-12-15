@@ -443,5 +443,7 @@
 	<classpathentry kind="lib" path="tools/lib/openid/json-smart-2.4.8.jar"/>
 	<classpathentry kind="lib" path="tools/lib/openid/nimbus-jose-jwt-9.22.jar"/>
 	<classpathentry kind="lib" path="tools/lib/openid/oauth2-oidc-sdk-9.35.jar"/>
+	<classpathentry kind="lib" path="tools/lib/jackson-core-asl-1.9.13.jar"/>
+	<classpathentry kind="lib" path="tools/lib/jackson-mapper-asl-1.9.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
